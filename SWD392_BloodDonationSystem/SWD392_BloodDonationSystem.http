@@ -1,0 +1,6 @@
+@SWD392_BloodDonationSystem_HostAddress = http://localhost:5120
+
+GET {{SWD392_BloodDonationSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
