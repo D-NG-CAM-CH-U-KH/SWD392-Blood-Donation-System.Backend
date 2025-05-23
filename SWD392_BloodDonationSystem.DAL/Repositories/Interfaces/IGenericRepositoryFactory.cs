@@ -1,4 +1,4 @@
-﻿namespace CS_Base_Project.DAL.Data.Repositories.Interfaces;
+﻿namespace SWD392_BloodDonationSystem.DAL.Data.Repositories.Interfaces;
 
 public interface IGenericRepositoryFactory
 {

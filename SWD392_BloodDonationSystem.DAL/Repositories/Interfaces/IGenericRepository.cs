@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using CS_Base_Project.DAL.Data.Metadatas;
+using SWD392_BloodDonationSystem.DAL.Data.Metadatas;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace CS_Base_Project.DAL.Data.Repositories.Interfaces;
+namespace SWD392_BloodDonationSystem.DAL.Data.Repositories.Interfaces;
 
 public interface IGenericRepository<TEntity> where TEntity : class
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CS_Base_Project.DAL.Data.Metadatas;
+namespace SWD392_BloodDonationSystem.DAL.Data.Metadatas;
 
 public static class PaginateExtension
 {

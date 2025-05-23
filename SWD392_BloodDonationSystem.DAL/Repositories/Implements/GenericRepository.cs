@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using CS_Base_Project.DAL.Data.Metadatas;
-using CS_Base_Project.DAL.Data.Repositories.Interfaces;
+using SWD392_BloodDonationSystem.DAL.Data.Metadatas;
+using SWD392_BloodDonationSystem.DAL.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace CS_Base_Project.DAL.Data.Repositories;
+namespace SWD392_BloodDonationSystem.DAL.Data.Repositories;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {

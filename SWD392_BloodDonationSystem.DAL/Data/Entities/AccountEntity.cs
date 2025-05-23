@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SWD392_BloodDonationSystem.DAL.Data.Entities;
 
-namespace CS_Base_Project.DAL.Data.Entities;
+namespace SWD392_BloodDonationSystem.DAL.Data.Entities;
 
 [Table("account")]
 public class AccountEntity
@@ -18,6 +19,12 @@ public class AccountEntity
     [Required]
     [Column("password")]
     public string Password { get; set; }
+    
+    [ForeignKey(nameof(RoleEntity))]
+    [Column("role_id")]
+    public int RoleId { get; set; }
+    
+    public required RoleEntity RoleEntity { get; set; }
     
     [Required]
     [Column("first_name", TypeName = "varchar(100)")]

@@ -1,7 +1,7 @@
-﻿using CS_Base_Project.DAL.Data.Repositories.Interfaces;
+﻿using SWD392_BloodDonationSystem.DAL.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CS_Base_Project.DAL.Data.Repositories;
+namespace SWD392_BloodDonationSystem.DAL.Data.Repositories;
 
 public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IAsyncDisposable where TContext : DbContext
 {

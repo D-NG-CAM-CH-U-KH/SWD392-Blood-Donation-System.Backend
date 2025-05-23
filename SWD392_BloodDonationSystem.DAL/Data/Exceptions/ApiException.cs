@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace CS_Base_Project.DAL.Data.Exceptions;
+namespace SWD392_BloodDonationSystem.DAL.Data.Exceptions;
 
 public abstract class ApiException : Exception
 {
