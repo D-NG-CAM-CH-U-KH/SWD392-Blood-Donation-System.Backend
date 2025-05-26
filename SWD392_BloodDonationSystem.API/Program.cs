@@ -8,11 +8,11 @@ using SWD392_BloodDonationSystem.DAL.Data.Repositories;
 using SWD392_BloodDonationSystem.DAL.Data.Repositories.Interfaces;
 using SWD392_BloodDonationSystem.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SWD392_BloodDonationSystem.DAL.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -112,8 +112,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Add Roles for Authorization
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("RequireAdminRole", policy => policy.RequireRole(RoleEntity.Admin))
-    .AddPolicy("RequireUserRole", policy => policy.RequireRole(RoleEntity.User));
+    .AddPolicy("RequireAdminRole", policy => policy.RequireRole(Role.Admin))
+    .AddPolicy("RequireUserRole", policy => policy.RequireRole(Role.Member))
+    .AddPolicy("RequireUserRole", policy => policy.RequireRole(Role.Staff));
 
 #endregion
 
@@ -136,7 +137,6 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUnitOfWork<AppDbContext>, UnitOfWork<AppDbContext>>();
 
-builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<TokenHelper>();

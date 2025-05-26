@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Context\EntityConfiguration\" />
       <Folder Include="Migrations\" />
     </ItemGroup>
 

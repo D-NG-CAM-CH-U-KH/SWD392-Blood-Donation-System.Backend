@@ -6,6 +6,7 @@ using SWD392_BloodDonationSystem.DAL.Data.RequestDto.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SWD392_BloodDonationSystem.DAL.Context;
 
 namespace SWD392_BloodDonationSystem.BLL.Services.Implements;
 
@@ -15,23 +16,27 @@ public class AuthService
 {
     private readonly PasswordHasher<object> _passwordHasher = new();
 
-    public async Task<string> HandleLogin(LoginRequestDTO loginRequest)
+    // public async Task<string> HandleLogin(LoginRequestDTO loginRequest)
+    // {
+    //     // Check if account exists
+    //     var account = await _unitOfWork.GetRepository<User>()
+    //         .FirstOrDefaultAsync(
+    //             predicate: a => a.Email == loginRequest.Email,
+    //             include: a => a.Include(a => a.RoleEntity)
+    //             );
+    //     if (account == null)
+    //         throw new UnauthorizedAccessException("Invalid email or password");
+    //     
+    //     // Verify password
+    //     var verificationResult = _passwordHasher.VerifyHashedPassword(null, account.Password, loginRequest.Password);
+    //     if (verificationResult == PasswordVerificationResult.Failed)
+    //         throw new UnauthorizedAccessException("Invalid email or password");
+    //     
+    //     var roleName = account.RoleEntity.Name;
+    //     return tokenHelper.GenerateToken(account.Id.ToString(), account.Email, roleName);
+    // }
+    public Task<string> HandleLogin(LoginRequestDTO loginRequestDto)
     {
-        // Check if account exists
-        var account = await _unitOfWork.GetRepository<AccountEntity>()
-            .FirstOrDefaultAsync(
-                predicate: a => a.Email == loginRequest.Email,
-                include: a => a.Include(a => a.RoleEntity)
-                );
-        if (account == null)
-            throw new UnauthorizedAccessException("Invalid email or password");
-        
-        // Verify password
-        var verificationResult = _passwordHasher.VerifyHashedPassword(null, account.Password, loginRequest.Password);
-        if (verificationResult == PasswordVerificationResult.Failed)
-            throw new UnauthorizedAccessException("Invalid email or password");
-        
-        var roleName = account.RoleEntity.Name;
-        return tokenHelper.GenerateToken(account.Id.ToString(), account.Email, roleName);
+        throw new NotImplementedException();
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System.Security.Claims;
-using SWD392_BloodDonationSystem.BLL.Services.Implements;
-using SWD392_BloodDonationSystem.DAL.Data.Entities;
 using SWD392_BloodDonationSystem.DAL.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using SWD392_BloodDonationSystem.DAL.Context;
 
 namespace SWD392_BloodDonationSystem.BLL.Services;
 
