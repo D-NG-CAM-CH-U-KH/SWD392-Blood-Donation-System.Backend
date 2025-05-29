@@ -15,7 +15,7 @@ public partial class DonationAppointment
 
     public int UserID { get; set; }
 
-    public int? UserFormID { get; set; }
+    public int? DonationFormID { get; set; }
 
     public int DonationScheduleID { get; set; }
 
@@ -31,7 +31,11 @@ public partial class DonationAppointment
 
     [Column(TypeName = "timestamp with time zone")]
     public DateTime CreatedAt { get; set; }
-
+    
+    [ForeignKey("DonationFormID")]
+    [InverseProperty("Appointment")]
+    public virtual DonationForm DonationForm { get; set; }
+    
     [ForeignKey("DonationScheduleID")]
     [InverseProperty("DonationAppointments")]
     public virtual DonationSchedule DonationSchedule { get; set; }
@@ -39,4 +43,7 @@ public partial class DonationAppointment
     [ForeignKey("UserID")]
     [InverseProperty("DonationAppointments")]
     public virtual User User { get; set; }
+    
+    [InverseProperty("Appointment")]
+    public virtual BloodMatchingLog BloodMatchingLog { get; set; }
 }

@@ -18,7 +18,7 @@ public partial class BloodRequest
     public int? MatchedDonorID { get; set; }
 
     public int BloodGroupID { get; set; }
-
+    
     public int Volume { get; set; }
 
     [StringLength(20)]
@@ -42,8 +42,8 @@ public partial class BloodRequest
     [InverseProperty("BloodRequests")]
     public virtual BloodGroup BloodGroup { get; set; }
 
-    [InverseProperty("Request")]
-    public virtual ICollection<BloodMatchingLog> BloodMatchingLogs { get; set; } = new List<BloodMatchingLog>();
+    [InverseProperty("Request")] 
+    public virtual BloodMatchingLog BloodMatchingLog { get; set; }
 
     [ForeignKey("MatchedDonorID")]
     [InverseProperty("BloodRequestMatchedDonors")]

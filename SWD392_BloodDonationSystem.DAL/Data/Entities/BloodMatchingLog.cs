@@ -35,6 +35,10 @@ public partial class BloodMatchingLog
     public virtual User Donor { get; set; }
 
     [ForeignKey("RequestID")]
-    [InverseProperty("BloodMatchingLogs")]
+    [InverseProperty("BloodMatchingLog")]
     public virtual BloodRequest Request { get; set; }
+    
+    [ForeignKey("AppointmentID")]
+    [InverseProperty("BloodMatchingLog")]
+    public virtual DonationAppointment Appointment { get; set; }
 }

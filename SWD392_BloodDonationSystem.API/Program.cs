@@ -15,10 +15,18 @@ using Microsoft.OpenApi.Models;
 using SWD392_BloodDonationSystem.DAL.Context;
 
 var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
+
+#region Configuration
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables()
+    .AddUserSecrets<Program>();
+
+#endregion
 
 #region Implement Swagger
 builder.Services.AddEndpointsApiExplorer(); // Required for Swagger UI
@@ -65,7 +73,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options
         .UseNpgsql(
-            config.GetConnectionString("PostgresConnectionString"),
+            builder.Configuration.GetConnectionString("PostgresConnectionString"),
             npgsqlOptions => npgsqlOptions
                 .EnableRetryOnFailure(
                     maxRetryCount: 5,
@@ -91,9 +99,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = config.GetSection("JWT:ValidIssuers").Get<string[]>()?[0],
-            ValidAudience =config.GetSection("JWT:ValidAudiences").Get<string[]>()?[0],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:Key"]))
+            ValidIssuer = builder.Configuration.GetSection("JWT:ValidIssuers").Get<string[]>()?[0],
+            ValidAudience = builder.Configuration.GetSection("JWT:ValidAudiences").Get<string[]>()?[0],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
         };
 
         options.Events = new JwtBearerEvents
@@ -185,10 +193,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//     dbContext.Database.Migrate(); // Applies any pending migrations
-// }
+// Apply migrations at startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate(); // Applies any pending migrations
+}
 
 app.Run();

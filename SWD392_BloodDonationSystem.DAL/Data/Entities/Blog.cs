@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace SWD392_BloodDonationSystem.DAL.Data.Entities;
 
@@ -30,11 +28,14 @@ public partial class Blog
     [StringLength(100)]
     public string Category { get; set; }
 
-    public bool? IsPublished { get; set; }
+    [DefaultValue(false)]
+    public bool IsPublished { get; set; }
 
-    public int? ViewCount { get; set; }
+    [DefaultValue(0)]
+    public int ViewCount { get; set; }
 
-    public bool? IsFeatured { get; set; }
+    [DefaultValue(false)]
+    public bool IsFeatured { get; set; }
 
     [StringLength(200)]
     public string Tags { get; set; }
