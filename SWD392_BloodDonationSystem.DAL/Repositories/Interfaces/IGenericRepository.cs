@@ -69,6 +69,7 @@ public interface IGenericRepository<TEntity> where TEntity : class
     #region Insert Async
     
     Task InsertAsync(TEntity entity);
+    Task<bool> InsertAsyncSuccessfully(TEntity entity);
     
     Task InsertRangeAsync(IEnumerable<TEntity> entities);
 

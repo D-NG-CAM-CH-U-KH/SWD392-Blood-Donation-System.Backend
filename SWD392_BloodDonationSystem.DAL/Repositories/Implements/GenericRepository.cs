@@ -160,6 +160,14 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         ArgumentNullException.ThrowIfNull(entity);
         await _dbSet.AddAsync(entity);
     }
+    
+    public async Task<bool> InsertAsyncSuccessfully(TEntity entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity);
+        await _dbSet.AddAsync(entity);
+        var result = await _dbContext.SaveChangesAsync();
+        return result > 0;
+    }
 
     public virtual async Task InsertRangeAsync(IEnumerable<TEntity> entities)
     {
