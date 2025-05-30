@@ -24,4 +24,7 @@ public class CreateAccountRequestDTO
     [MaxLength(50, ErrorMessage = "Last name length cannot be more than 50 characters")]
     public string LastName { get; set; }
     
+    
+    public DateTime DateOfBirth { get; set; }
+    
 }
