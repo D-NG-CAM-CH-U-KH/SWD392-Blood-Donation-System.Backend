@@ -15,24 +15,24 @@ public partial class BloodTypeCertificate
 
     public int UserID { get; set; }
 
-    public int? ImageProof { get; set; }
+    public int ImageProof { get; set; }
 
-    public int? CitizenID { get; set; }
+    public required int CitizenID { get; set; }
 
     [Required]
     [StringLength(100)]
     public string FullName { get; set; }
 
-    public DateOnly? DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
     public string Address { get; set; }
 
     [StringLength(100)]
     public string BloodDonationCenter { get; set; }
 
-    public int? DonatedVolumn { get; set; }
+    public int DonatedVolumn { get; set; }
 
-    public int? SeriNumber { get; set; }
+    public int SeriNumber { get; set; }
 
     [ForeignKey("UserID")]
     [InverseProperty("BloodTypeCertificates")]

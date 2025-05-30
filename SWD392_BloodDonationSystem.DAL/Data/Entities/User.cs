@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,19 @@ public partial class User
 
     [Required]
     [StringLength(100)]
-    public string FullName { get; set; }
+    public string FirstName { get; set; }
+    
+    [Required]
+    [StringLength(100)]
+    public string LastName { get; set; }
 
     [Required]
     [StringLength(100)]
     public string Email { get; set; }
+    
+    [Required]
+    [StringLength(255)]
+    public string Password { get; set; }
 
     [Required]
     [StringLength(10)]
@@ -32,9 +41,9 @@ public partial class User
     [StringLength(20)]
     public string Phone { get; set; }
 
-    public bool? Gender { get; set; }
+    public bool Gender { get; set; }
 
-    public DateOnly? DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
     public int? BloodGroupID { get; set; }
 
@@ -54,9 +63,8 @@ public partial class User
 
     public int? Latitude { get; set; }
 
-    public bool? IsActive { get; set; }
-    
-    // public string Password { get; set; }    
+    [DefaultValue(false)]
+    public bool IsActive { get; set; }
 
     [Column(TypeName = "timestamp with time zone")]
     public DateTime CreatedAt { get; set; }
@@ -100,9 +108,6 @@ public partial class User
 
     [InverseProperty("GeneratedByNavigation")]
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
-
-    [InverseProperty("User")]
-    public virtual ICollection<UserForm> UserForms { get; set; } = new List<UserForm>();
 
     [InverseProperty("User")]
     public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();

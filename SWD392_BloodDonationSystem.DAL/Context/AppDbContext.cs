@@ -34,10 +34,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<DonationSchedule> DonationSchedules { get; set; }
 
-    public virtual DbSet<Form> Forms { get; set; }
-
-    public virtual DbSet<FormQuestion> FormQuestions { get; set; }
-
     public virtual DbSet<Image> Images { get; set; }
     
     public virtual DbSet<Reminder> Reminders { get; set; }
@@ -49,10 +45,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<SystemSetting> SystemSettings { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<UserAnswer> UserAnswers { get; set; }
-
-    public virtual DbSet<UserForm> UserForms { get; set; }
+    
+    public virtual DbSet<DonationForm> UserForms { get; set; }
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
@@ -122,9 +116,15 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BloodMatchingLogs_DonorID");
 
-            entity.HasOne(d => d.Request).WithMany(p => p.BloodMatchingLogs)
+            entity.HasOne(d => d.Request).WithOne(p => p.BloodMatchingLog)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BloodMatchingLogs_RequestID");
+            
+            entity.HasOne(d => d.Appointment)
+                .WithOne(p => p.BloodMatchingLog)
+                .HasForeignKey<BloodMatchingLog>(d => d.AppointmentID)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_BloodMatchingLogs_AppointmentID");
         });
 
         modelBuilder.Entity<BloodRequest>(entity =>
@@ -168,6 +168,17 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.DonationAppointments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DonationAppointments_UserID");
+            
+            entity.HasOne(d => d.DonationForm).WithOne(p => p.Appointment)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DonationAppointments_DonationFormID");
+        });
+        
+        modelBuilder.Entity<DonationForm>(entity =>
+        {
+            entity.HasKey(e => e.DonationFormID).HasName("DonationForms_pkey");
+            
+            entity.Property(e => e.DonationFormID).UseIdentityAlwaysColumn();
         });
 
         modelBuilder.Entity<DonationSchedule>(entity =>
@@ -178,25 +189,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.DonationSchedules).HasConstraintName("FK_DonationSchedule_CreatedBy");
         });
-
-        modelBuilder.Entity<Form>(entity =>
-        {
-            entity.HasKey(e => e.FormID).HasName("Forms_pkey");
-
-            entity.Property(e => e.FormID).UseIdentityAlwaysColumn();
-        });
-
-        modelBuilder.Entity<FormQuestion>(entity =>
-        {
-            entity.HasKey(e => e.QuestionID).HasName("FormQuestion_pkey");
-
-            entity.Property(e => e.QuestionID).UseIdentityAlwaysColumn();
-
-            entity.HasOne(d => d.Form).WithMany(p => p.FormQuestions)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_FormQuestion_FormID");
-        });
-
+        
         modelBuilder.Entity<Image>(entity =>
         {
             entity.HasKey(e => e.ImageID).HasName("Image_pkey");
@@ -250,33 +243,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.BloodGroup).WithMany(p => p.Users).HasConstraintName("FK_Users_BloodGroupID");
         });
-
-        modelBuilder.Entity<UserAnswer>(entity =>
-        {
-            entity.HasKey(e => e.AnswerID).HasName("UserAnswers_pkey");
-
-            entity.Property(e => e.AnswerID).UseIdentityAlwaysColumn();
-
-            entity.HasOne(d => d.UserForm).WithMany(p => p.UserAnswers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserAnswers_UserFormID");
-        });
-
-        modelBuilder.Entity<UserForm>(entity =>
-        {
-            entity.HasKey(e => e.UserFormID).HasName("UserForms_pkey");
-
-            entity.Property(e => e.UserFormID).UseIdentityAlwaysColumn();
-
-            entity.HasOne(d => d.Form).WithMany(p => p.UserForms)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserForms_FormID");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UserForms)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserForms_UserID");
-        });
-
+        
         modelBuilder.Entity<UserRole>(entity =>
         {
             entity.HasKey(e => e.UserRoleID).HasName("UserRoles_pkey");

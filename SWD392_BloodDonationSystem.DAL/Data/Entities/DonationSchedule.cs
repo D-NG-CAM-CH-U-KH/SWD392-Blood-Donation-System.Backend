@@ -24,7 +24,7 @@ public partial class DonationSchedule
     [StringLength(255)]
     public string Note { get; set; }
 
-    public int? CreatedBy { get; set; }
+    public int CreatedBy { get; set; }
 
     [Column(TypeName = "timestamp with time zone")]
     public DateTime CreatedAt { get; set; }

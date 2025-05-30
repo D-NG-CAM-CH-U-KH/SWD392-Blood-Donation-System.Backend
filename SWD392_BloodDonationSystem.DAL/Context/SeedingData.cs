@@ -8,9 +8,21 @@ public class SeedingData
     #region Static data sources
     
     private static readonly List<User> Users = [
-        new User { FullName = "Admin Account", Email = "admin.account@example.com", CitizenID = "123456789", Phone = "0123456789", Gender = true, DateOfBirth = new DateOnly(1990, 5, 15), BloodGroupID = 1, City = "New York", District = "Manhattan", Ward = "Central", HouseNumber = "123", Longitude = 40, Latitude = -74, IsActive = true, CreatedAt = DateTime.UtcNow },
-        new User { FullName = "Staff Account", Email = "staff.account@example.com", CitizenID = "987654321", Phone = "0987654321", Gender = false, DateOfBirth = new DateOnly(1985, 10, 20), BloodGroupID = 2, City = "Los Angeles", District = "Hollywood", Ward = "West", HouseNumber = "456", Longitude = 34, Latitude = -118, IsActive = true, CreatedAt = DateTime.UtcNow },
-        new User { FullName = "Member Account", Email = "member.account@example.com", CitizenID = "555666777", Phone = "0111222333", Gender = false, DateOfBirth = new DateOnly(1995, 8, 30), BloodGroupID = 3, City = "Chicago", District = "Lincoln Park", Ward = "North", HouseNumber = "789", Longitude = 41, Latitude = -87, IsActive = true, CreatedAt = DateTime.UtcNow }
+        new User
+        {
+            FirstName = "Admin", LastName = "Admin", Email = "admin.account@example.com", CitizenID = "123456789", Phone = "0123456789", Gender = true, DateOfBirth = new DateOnly(1990, 5, 15), BloodGroupID = 1, City = "New York", District = "Manhattan", Ward = "Central", HouseNumber = "123", Longitude = 40, Latitude = -74, IsActive = true, CreatedAt = DateTime.UtcNow, 
+            Password = "AQAAAAEAACcQAAAAEJ7vXOFEmPBvgNM6PKji3i0Gi00uyEdB/VVcbWm12rjgKq+ajZz41Qvw/km608zZAA==" // admin
+        },
+        new User
+        {
+            FirstName = "Staff", LastName = "Staff", Email = "staff.account@example.com", CitizenID = "987654321", Phone = "0987654321", Gender = false, DateOfBirth = new DateOnly(1985, 10, 20), BloodGroupID = 2, City = "Los Angeles", District = "Hollywood", Ward = "West", HouseNumber = "456", Longitude = 34, Latitude = -118, IsActive = true, CreatedAt = DateTime.UtcNow,
+            Password = "AQAAAAEAACcQAAAAEDTMHcUk0xVJkrtv778E3ub0LCribx0/h2ksK2SC77ry/ZDn5o9e1X52gsyMaGDvQw==" // staff
+        },
+        new User
+        {
+            FirstName = "Member", LastName = "Member", Email = "member.account@example.com", CitizenID = "555666777", Phone = "0111222333", Gender = false, DateOfBirth = new DateOnly(1995, 8, 30), BloodGroupID = 3, City = "Chicago", District = "Lincoln Park", Ward = "North", HouseNumber = "789", Longitude = 41, Latitude = -87, IsActive = true, CreatedAt = DateTime.UtcNow,
+            Password = "AQAAAAEAACcQAAAAEFvm38KzqpW6ttG986t6QT1CUsEfoc/2Iqqh+1n6vM5XcyVv5UXoxXNVlkWR7g3/+A==" // member
+        }
     ];
 
     private static readonly List<UserRole> UserRoles = [];
@@ -41,7 +53,7 @@ public class SeedingData
         if(UserRoles.Count > 0) return;
         foreach (var user in Users)
         {
-            var role = Roles.FirstOrDefault(r => user.FullName.Contains(r.RoleName));
+            var role = Roles.FirstOrDefault(r => user.FirstName.Trim().Contains(r.RoleName.Trim()));
             UserRoles.Add(new UserRole
             {
                 User = user,

@@ -1,0 +1,6 @@
+﻿services:
+  swd392_blooddonationsystem.api:
+    image: swd392_blooddonationsystem.api
+    build:
+      context: .
+      dockerfile: SWD392_BloodDonationSystem.API/Dockerfile

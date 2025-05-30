@@ -6,6 +6,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWD392_BloodDonationSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWD392_BloodDonationSystem.DAL", "SWD392_BloodDonationSystem.DAL\SWD392_BloodDonationSystem.DAL.csproj", "{63CCDCED-D257-4CD0-96B6-40F4DC796B6D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76684AFC-90D4-4BC5-8535-40A3874ABF8B}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
