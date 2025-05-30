@@ -55,6 +55,8 @@ public partial class User
     public int? Latitude { get; set; }
 
     public bool? IsActive { get; set; }
+    
+    // public string Password { get; set; }    
 
     [Column(TypeName = "timestamp with time zone")]
     public DateTime CreatedAt { get; set; }
