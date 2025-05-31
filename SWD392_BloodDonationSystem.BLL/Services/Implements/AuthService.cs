@@ -19,30 +19,21 @@ public class AuthService
     public async Task<string> HandleLogin(LoginRequestDTO loginRequest)
     {
         // Check if account exists
-        var account = await _unitOfWork.GetRepository<User>()
+        var user = await _unitOfWork.GetRepository<User>()
             .FirstOrDefaultAsync(
-                predicate: a => a.Email == loginRequest.Email,
-                include: a => a.Include(a => a.UserRoles)
+                predicate: u => u.CitizenID == loginRequest.CitizenID,
+                include: u => u.Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
                 );
-        if (account == null)
-            throw new UnauthorizedAccessException("Invalid email or password");
         
+        if (user == null)
+            throw new UnauthorizedAccessException("Invalid email or password");
         
         // Verify password
-        // var verificationResult = _passwordHasher.VerifyHashedPassword(account, account., loginRequest.Password);
-        // if (verificationResult == PasswordVerificationResult.Failed)
-        //     throw new UnauthorizedAccessException("Invalid email or password");
-        //
-        // var roleName = account.UserRoles.;
-
-        if (account.CitizenID != loginRequest.Password)
-        {
+        var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, loginRequest.Password);
+        if (verificationResult == PasswordVerificationResult.Failed)
             throw new UnauthorizedAccessException("Invalid email or password");
-        }
-        return tokenHelper.GenerateToken(account.CitizenID, account.Email, account.UserRoles.ToString());
+        
+        return tokenHelper.GenerateToken(user.UserID.ToString(), user.CitizenID, user.Email, user.UserRoles);
     }
-    // public Task<string> HandleLogin(LoginRequestDTO loginRequestDto)
-    // {
-    //     throw new NotImplementedException();
-    // }
 }
