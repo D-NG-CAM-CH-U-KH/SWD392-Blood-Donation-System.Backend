@@ -17,11 +17,7 @@ public class AvailableDonateDate
     [InverseProperty("AvailableDonateDates")]
     public User User { get; set; }
     
-    [StringLength(200)]
-    public string ScheduledMonth { get; set; }
-    
-    [StringLength(200)]
-    public string ScheduledDay { get; set; }
+    public DateTime ScheduledDate { get; set; }
     
     public bool AcceptEmergency { get; set; }
     
