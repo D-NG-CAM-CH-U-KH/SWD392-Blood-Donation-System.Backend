@@ -74,6 +74,9 @@ public partial class User
 
     [InverseProperty("Author")]
     public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
+    
+    [InverseProperty("User")]
+    public virtual ICollection<AvailableDonateDate> AvailableDonateDates { get; set; } = new List<AvailableDonateDate>();
 
     [InverseProperty("User")]
     public virtual ICollection<BloodDonation> BloodDonations { get; set; } = new List<BloodDonation>();
