@@ -72,6 +72,17 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AuditLogs_UserID");
         });
+        
+        modelBuilder.Entity<AvailableDonateDate>(entity =>
+        {
+            entity.HasKey(e => e.AvailableDateID).HasName("AvailableDonateDates_pkey");
+
+            entity.Property(e => e.AvailableDateID).UseIdentityAlwaysColumn();
+
+            entity.HasOne(d => d.User).WithMany(p => p.AvailableDonateDates)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AvailableDonateDates_UserID");
+        });
 
         modelBuilder.Entity<Blog>(entity =>
         {
