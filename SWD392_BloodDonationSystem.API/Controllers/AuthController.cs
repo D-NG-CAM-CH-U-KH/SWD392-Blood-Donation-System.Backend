@@ -1,10 +1,13 @@
-﻿using SWD392_BloodDonationSystem.BLL.Services.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SWD392_BloodDonationSystem.BLL.Services.Interfaces;
 using SWD392_BloodDonationSystem.Constants;
+using SWD392_BloodDonationSystem.Controllers;
+using SWD392_BloodDonationSystem.DAL.Data.Entities;
 using SWD392_BloodDonationSystem.DAL.Data.Metadatas;
 using SWD392_BloodDonationSystem.DAL.Data.RequestDto.Auth;
-using Microsoft.AspNetCore.Mvc;
 
-namespace SWD392_BloodDonationSystem.Controllers;
+namespace SWD392_BloodDonationSystem.API.Controllers;
 
 public class AuthController(
     ILogger<AuthController> logger,
@@ -21,5 +24,4 @@ public class AuthController(
             data: await authService.HandleLogin(requestDto)
         ));
     }
-   
 }
