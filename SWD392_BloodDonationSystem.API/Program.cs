@@ -150,7 +150,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
-//builder.Services.AddScoped<IAvailableDonationDateService, AvailableDonationDateService>();
+builder.Services.AddScoped<IAvailableDonationDateService, AvailableDonationDateService>();
 
 builder.Services.AddScoped<TokenHelper>();
 
