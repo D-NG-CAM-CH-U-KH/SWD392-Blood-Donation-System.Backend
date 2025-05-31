@@ -17,6 +17,9 @@ public partial class AppDbContext : DbContext
     }
 
     public virtual DbSet<AuditLog> AuditLogs { get; set; }
+    
+    public virtual DbSet<AvailableDonateDate> AvailableDonateDates { get; set; }
+
 
     public virtual DbSet<Blog> Blogs { get; set; }
 
