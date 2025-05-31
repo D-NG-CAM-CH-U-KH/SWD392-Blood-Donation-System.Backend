@@ -63,7 +63,7 @@ public partial class User
 
     public int? Latitude { get; set; }
 
-    [DefaultValue(false)]
+    [DefaultValue(true)]
     public bool IsActive { get; set; }
 
     [Column(TypeName = "timestamp with time zone")]
